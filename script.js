@@ -14,10 +14,20 @@ nameInput.addEventListener("blur", () => {
   handleErrorMessage(nameInput, isValid);
 });
 
+emailInput.addEventListener("blur", () => {
+  const isValid = validateEmail(emailInput);
+  updateValidationStyle(emailInput, isValid);
+  handleErrorMessage(emailInput, isValid);
+});
+
 const regex = /^[A-Z][a-z]+(-[A-Z][a-z]+)*( [A-Z][a-z]+(-[A-Z][a-z]+)*)+$/;
 
 const validateName = (name) => {
   return regex.test(name);
+};
+
+const validateEmail = (emailInput) => {
+  return emailInput.checkValidity();
 };
 
 const updateValidationStyle = (inputElement, isValid) => {
