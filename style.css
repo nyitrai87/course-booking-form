@@ -21,6 +21,7 @@ input {
     padding: 0px 4px;
     border: 0px;
     border-radius: 0px;
+    box-sizing: border-box;
 }
 
 /* Style and centre the submit button */
@@ -40,22 +41,19 @@ button {
     justify-content: center;
     align-items: center;
     width: 280px;
-    height: 160px;
+    height: 152px;
     border: 4px solid #3c3c3b;
     border-radius: 32px;
     background-color: #89c82e;
+    box-sizing: border-box;
 }
 
 .pass {
-    width: 182px;
-    height: 18px;
     border: 1px solid green;
     background-color: #a1e59a;
 }
 
 .fail {
-    width: 182px;
-    height: 18px;
     border: 1px solid red;
     background-color: #f5a3a3;
 }
@@ -71,5 +69,25 @@ button {
 /* Set the gap between the input group and submit button for consistent spacing */
 #booking-form {
     display: grid;
-    gap: 8px;
+    grid-template-rows: 34px 76px 34px;
+}
+
+#submit-button {
+    margin-top: 4px;
+    align-self: start;
+}
+
+#error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 4px;
+}
+
+#error-container p {
+    margin: 0;
+    text-align: center;
+    background-color: #e70064;
+    color: white;
 }

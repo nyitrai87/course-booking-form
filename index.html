@@ -9,12 +9,13 @@
   <body>
     <div class="container">
       <form id="booking-form">
+        <div id="error-container"></div>
         <div id="input-group">
           <label for="name">Name:</label>
           <input
             type="text"
             id="name"
-            name="name"
+            name="full-name"
             placeholder="Enter Your Name"
             required
           />
@@ -22,14 +23,15 @@
           <input
             type="email"
             id="email"
-            name="email"
+            name="email-address"
             placeholder="Enter Your Email"
+            required
           />
           <label for="card">Card:</label>
           <input
             type="text"
             id="card"
-            name="card"
+            name="card-number"
             placeholder="Enter a Proxy Credit Card Number."
           />
         </div>
