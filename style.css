@@ -46,6 +46,20 @@ button {
     background-color: #89c82e;
 }
 
+.pass {
+    width: 182px;
+    height: 18px;
+    border: 1px solid green;
+    background-color: #a1e59a;
+}
+
+.fail {
+    width: 182px;
+    height: 18px;
+    border: 1px solid red;
+    background-color: #f5a3a3;
+}
+
 /* Align labels and inputs in two columns and three rows */
 #input-group {
     display: grid;
