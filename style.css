@@ -1,4 +1,4 @@
-/* Global font settings, according to the requirements */
+/* Apply the font, text size and text colour specified in the User Stories */
 * {
     font-family: Calibri, sans-serif;
     font-size: 11px;
@@ -14,7 +14,7 @@ body {
     margin: 0;
 }
 
-/* Set consistent input field dimensions and remove default borders */
+/* Keep input dimensions consistent when validation borders are applied */
 input {
     width: 184px;
     height: 20px;
@@ -24,7 +24,7 @@ input {
     box-sizing: border-box;
 }
 
-/* Style and centre the submit button */
+/* Style the submit button and centre it within its grid column */
 button {
     align-self: center;
     justify-self: center;
@@ -34,7 +34,7 @@ button {
     border-radius: 4px;
 }
 
-/* Match the wireframe's container dimensions, colours and rounded border */
+/* Match the wireframe's dimensions while allowing the container to grow for error messages */
 .container {
     display: flex;
     flex-direction: column;
@@ -48,17 +48,19 @@ button {
     box-sizing: border-box;
 }
 
+/* Highlight inputs that pass validation */
 .pass {
     border: 1px solid green;
     background-color: #a1e59a;
 }
 
+/* Highlight inputs that fail validation */
 .fail {
     border: 1px solid red;
     background-color: #f5a3a3;
 }
 
-/* Align labels and inputs in two columns and three rows */
+/* Arrange labels and inputs in two columns with spacing between each field */
 #input-group {
     display: grid;
     align-items: center;
@@ -66,17 +68,19 @@ button {
     row-gap: 8px;
 }
 
-/* Set the gap between the input group and submit button for consistent spacing */
+/* Allow the error row to grow while keeping the input and button rows fixed */
 #booking-form {
     display: grid;
     grid-template-rows: minmax(34px, auto) 76px 34px;
 }
 
+/* Position the button near the top of its row with a small gap above it */
 #submit-button {
     margin-top: 4px;
     align-self: start;
 }
 
+/* Stack error messages with gaps between them and padding above and below */
 #error-container {
     display: flex;
     flex-direction: column;
@@ -86,6 +90,7 @@ button {
     gap: 4px;
 }
 
+/* Style each error message and remove default paragraph margins */
 #error-container p {
     margin: 0;
     text-align: center;
