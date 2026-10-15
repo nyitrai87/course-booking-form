@@ -20,6 +20,12 @@ emailInput.addEventListener("blur", () => {
   handleErrorMessage(emailInput, isValid);
 });
 
+cardInput.addEventListener("blur", () => {
+  const isValid = validateCard(cardInput.value);
+  updateValidationStyle(cardInput, isValid);
+  handleErrorMessage(cardInput, isValid);
+});
+
 const regex = /^[A-Z][a-z]+(-[A-Z][a-z]+)*( [A-Z][a-z]+(-[A-Z][a-z]+)*)+$/;
 
 const validateName = (name) => {
@@ -28,6 +34,52 @@ const validateName = (name) => {
 
 const validateEmail = (emailInput) => {
   return emailInput.checkValidity();
+};
+
+const validateCard = (cardNumber) => {
+  const isNum = /^\d+$/.test(cardNumber);
+  const cardDigits = cardNumber.split("").map(Number);
+
+  // Step 0: Check that the length of the card number is between 11 and 19 characters.
+  if (cardNumber.length < 11 || cardNumber.length > 19) {
+    return false;
+  }
+
+  // Step 1: Check that the card number only contains numeric characters.
+  if (!isNum) {
+    return false;
+  }
+
+  // Step 2: Check that the sum of the card number digits is not 0.
+  // Sum can only be 0 if all digits are 0's.
+  // This also satisfies the criteria to reject card number that consists of 0's only.
+  if (cardDigits.every((digit) => digit === 0)) {
+    return false;
+  }
+
+  // Step 3 and 4: Starting from the rightmost digit, double the value of every second digit.
+  // If doubling the number results in a two-digit number greater than 9, then add the
+  // digits of the product. This is equal to deducting 9 from the product.
+  for (let i = cardDigits.length - 2; i >= 0; i -= 2) {
+    if (cardDigits[i] * 2 > 9) {
+      cardDigits[i] = cardDigits[i] * 2 - 9;
+    } else {
+      cardDigits[i] = cardDigits[i] * 2;
+    }
+  }
+
+  // Step 5 and 6: Take the sum of all the single digits. If the total modulo 10 is equal to 0
+  // then the number is valid according to the Luhn formula; else it is not valid.
+  let sum = 0;
+  cardDigits.forEach((digit) => {
+    sum += digit;
+  });
+
+  if (sum % 10 !== 0) {
+    return false;
+  }
+
+  return true;
 };
 
 const updateValidationStyle = (inputElement, isValid) => {
@@ -43,8 +95,7 @@ const updateValidationStyle = (inputElement, isValid) => {
 const handleErrorMessage = (inputElement, isValid) => {
   const errorId = `${inputElement.id}-error`;
   const existingMessage = document.getElementById(errorId);
-  const errorMessage =
-    "Please enter a valid " + inputElement.name.split("-").join(" ") + ".";
+  const errorMessage = `Please enter a valid ${inputElement.name.split("-").join(" ")}.`;
 
   if (isValid && existingMessage) {
     existingMessage.remove();
