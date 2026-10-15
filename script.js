@@ -83,6 +83,11 @@ const validateCard = (cardNumber) => {
 };
 
 const updateValidationStyle = (inputElement, isValid) => {
+  if (inputElement.value === "") {
+    inputElement.classList.remove("fail", "pass");
+    return;
+  }
+
   if (isValid) {
     inputElement.classList.remove("fail");
     inputElement.classList.add("pass");
@@ -96,6 +101,13 @@ const handleErrorMessage = (inputElement, isValid) => {
   const errorId = `${inputElement.id}-error`;
   const existingMessage = document.getElementById(errorId);
   const errorMessage = `Please enter a valid ${inputElement.name.split("-").join(" ")}.`;
+
+  if (inputElement.value === "") {
+    if (existingMessage) {
+      existingMessage.remove();
+    }
+    return;
+  }
 
   if (isValid && existingMessage) {
     existingMessage.remove();
