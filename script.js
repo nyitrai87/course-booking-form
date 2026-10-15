@@ -2,10 +2,30 @@ const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 const cardInput = document.getElementById("card");
 const form = document.getElementById("booking-form");
+const submitButton = document.getElementById("submit-button");
 const error = document.getElementById("error-container");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
+
+  if (
+    validateName(nameInput.value) &&
+    validateEmail(emailInput) &&
+    validateCard(cardInput.value)
+  ) {
+    const emailBody = encodeURIComponent(
+      `Name: ${nameInput.value}\r\nEmail: ${emailInput.value}\r\nCard: ${cardInput.value}`,
+    );
+
+    window.location.href = `mailto:challenge@dn-uk.com?body=${emailBody}`;
+  } else {
+    updateValidationStyle(nameInput, validateName(nameInput.value), true);
+    updateValidationStyle(emailInput, validateEmail(emailInput), true);
+    updateValidationStyle(cardInput, validateCard(cardInput.value), true);
+    handleErrorMessage(nameInput, validateName(nameInput.value), true);
+    handleErrorMessage(emailInput, validateEmail(emailInput), true);
+    handleErrorMessage(cardInput, validateCard(cardInput.value), true);
+  }
 });
 
 nameInput.addEventListener("blur", () => {
@@ -82,8 +102,12 @@ const validateCard = (cardNumber) => {
   return true;
 };
 
-const updateValidationStyle = (inputElement, isValid) => {
-  if (inputElement.value === "") {
+const updateValidationStyle = (
+  inputElement,
+  isValid,
+  showEmptyErrors = false,
+) => {
+  if (showEmptyErrors === false && inputElement.value === "") {
     inputElement.classList.remove("fail", "pass");
     return;
   }
@@ -97,12 +121,12 @@ const updateValidationStyle = (inputElement, isValid) => {
   }
 };
 
-const handleErrorMessage = (inputElement, isValid) => {
+const handleErrorMessage = (inputElement, isValid, showEmptyErrors = false) => {
   const errorId = `${inputElement.id}-error`;
   const existingMessage = document.getElementById(errorId);
   const errorMessage = `Please enter a valid ${inputElement.name.split("-").join(" ")}.`;
 
-  if (inputElement.value === "") {
+  if (showEmptyErrors === false && inputElement.value === "") {
     if (existingMessage) {
       existingMessage.remove();
     }
